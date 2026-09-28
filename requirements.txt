@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# 已在 Windows / Python 3.10 验证；MediaPipe 使用 solutions API。
+# contrib 包提供 cv2，不要再同时安装 opencv-python。
+opencv-contrib-python==4.13.0.92
+mediapipe==0.10.11
+numpy==2.2.6
+Pillow==12.1.1
+matplotlib==3.10.8
+scipy==1.15.3

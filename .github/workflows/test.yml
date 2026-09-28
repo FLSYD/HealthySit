@@ -1,0 +1,46 @@
+name: 测试与 Windows 打包
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - name: 安装依赖
+        run: python -m pip install -r requirements-dev.txt
+      - name: 检查依赖与语法
+        run: |
+          python -m pip check
+          python -m compileall -q main.py src ui scripts tests
+      - name: 运行回归测试
+        run: python -m unittest discover -s tests -v
+      - name: 验证真实界面和模型
+        run: python scripts/verify_app.py --gui --model
+      - name: 打包 Windows 应用
+        run: python -m PyInstaller --noconfirm healthy_sit.spec
+      - name: 确认发布包不包含用户数据
+        shell: pwsh
+        run: |
+          if ((Test-Path dist/HealthySit/_internal/data) -or (Test-Path dist/HealthySit/_internal/logs)) {
+            throw '发布包中包含本地数据库或日志'
+          }
+      - name: 保存可下载的 Windows 应用
+        uses: actions/upload-artifact@v4
+        with:
+          name: HealthySit-Windows
+          path: dist/HealthySit
+          if-no-files-found: error
+          retention-days: 7

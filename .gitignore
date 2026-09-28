@@ -1,0 +1,38 @@
+# 本机环境和工具状态
+.venv/
+venv/
+.idea/
+.cursor/
+.codex/
+.agents/
+.env
+.env.*
+!.env.example
+
+# Python 缓存和测试产物
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 构建产物、安装包和回退备份
+build/
+dist/
+dist_*/
+*.exe
+*.zip
+
+# 用户记录、导出和运行日志
+data/
+logs/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.log
+
+# 本地系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store
