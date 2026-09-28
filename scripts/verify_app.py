@@ -21,7 +21,7 @@ def verify_model():
             raise AssertionError('空白测试帧不应识别出人体')
     finally:
         detector.release()
-    print('PASS: MediaPipe 模型加载、空白帧推理和资源释放')
+    print('PASS: MediaPipe model, blank-frame inference, and resource cleanup')
 
 
 def verify_gui():
@@ -53,7 +53,7 @@ def verify_gui():
                 raise AssertionError(f'Tk 回调发生异常: {errors}')
         finally:
             root.destroy()
-    print('PASS: Tk 主窗口初始化、临时数据库与正常关闭')
+    print('PASS: Tk window, temporary database, and normal shutdown')
 
 
 def main():
